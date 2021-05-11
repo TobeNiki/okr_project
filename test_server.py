@@ -13,7 +13,8 @@ def test_text_simila():
             "corpus": [
                 "私は春です","私は秋です","僕は春夏秋冬です"
             ],
-            "morpheme_on":True
+            "morpheme_on":True,
+            "svd_on":False
         },
     )
     assert response.status_code == 200

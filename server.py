@@ -12,6 +12,7 @@ morpheme = Morpheme()
 class Data(BaseModel):
     corpus : List[str]
     morpheme_on : bool
+    svd_on : bool
 
 @app.on_event("startup")
 async def startup_event():
@@ -23,12 +24,9 @@ def shutdown_event():
 
 @app.post('/text_simila') # methodとendpointの指定
 async def text_simila(data : Data):
-    if data.morpheme_on:
-        text_corpus = morpheme.fit_transform(data.corpus)
-    else:
-        text_corpus = data.corpus
+    text_corpus = morpheme.fit_transform(data.corpus) if data.morpheme_on else data.corpus
     textsimila = TextSimilarity()
-    cos_ts = textsimila.fit_transform(text_corpus)
+    cos_ts = textsimila.fit_compression_transform(text_corpus) if data.svd_on else textsimila.fit_transform(text_corpus)
     return {
         "cos_similarity":cos_ts.tolist(), 
         "tfidf":  textsimila.get_tfidf().tolist(),

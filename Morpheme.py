@@ -1,6 +1,15 @@
 import MeCab
-from TextSimlarity import TextSimilarity
+import sys
+"""
+for path in sys.path:
+    print(path)
+print("==========")
+"""
+import os
 
+path = os.getcwd()
+
+print(path)
 class Morpheme:
     def __init__(self):
         self.tagger = MeCab.Tagger('-Ochasen')
@@ -26,29 +35,3 @@ class Morpheme:
         #return [self.tagger.parse(sentence).strip() for sentence in corpus]
         return result
     
-tagger = MeCab.Tagger('-Ochasen')
-
-def tokenize( text:str)->list:
-    tokens = []
-    node = tagger.parseToNode(text)
-    while node:
-        if node.surface != '':
-            tokens.append(node.surface)
-        node.next
-    return tokens
-
-if __name__ == "__main__":
-    morpheme = Morpheme()
-    text = [
-        'このコードではMeCab.Taggerクラスのインスタンスを生成。',
-        'そのparseメソッドに「くるまでまつ」という文字列を渡すことで解析を実行しています。',
-        'その実行結果は次のようになりました。',
-        'MeCab.Taggerクラスのインスタンス生成を行っている行にはコメントがあります。',
-        '形態素解析実行時に参照する辞書を変更するといったことが可能です。'
-    ]
-    corpus = morpheme.fit_transform(text)
-    print(corpus)
-    ts = TextSimilarity()
-    cos = ts.fit_transform(corpus)
-    print(type(cos.tolist()),type(ts.get_feature_name()),type(ts.get_tfidf().tolist()))
-    print(ts.get_tfidf().tolist(),cos.tolist())
