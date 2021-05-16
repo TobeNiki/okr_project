@@ -22,10 +22,17 @@ class SetSimilarity:
     @staticmethod
     def overlap_coefficient(list_a:list, list_b:list)->float:#集合の要素数に条件
         set_intersection = set.intersection(set(list_a), set(list_b))
+        print(set_intersection)
         num_intersection = len(set_intersection)
         num_listA, num_listB = len(list_a), len(list_b)
         try:
             return float(num_intersection) / min([num_listA, num_listB])
+        except ZeroDivisionError:
+            return 1.0
+    @staticmethod
+    def simpson_coefficient(intersection:list, list_a:list, list_b:list)->float:
+        try:
+            return float(len(intersection))/min([len(list_a),len(list_a)])
         except ZeroDivisionError:
             return 1.0
     @staticmethod
