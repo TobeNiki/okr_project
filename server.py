@@ -43,5 +43,3 @@ async def add_process_time_header(request: Request, call_next):
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
-#https://drive.google.com/drive/folders/135lZmcVh8AE-5RITdyYu8cuPfNjln5KP?usp=sharing
